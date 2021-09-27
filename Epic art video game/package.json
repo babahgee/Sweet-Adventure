@@ -1,0 +1,24 @@
+{
+  "name": "epic-art-video-game",
+  "version": "0.0.1",
+  "description": "Epic art video game",
+  "main": "app.js",
+  "author": {
+    "name": "Babah Gee",
+    "url": "https://github.com/babahgee"
+  },
+  "scripts": {
+    "install": "npm install express electron-is-dev electron socket.io socket.io-client colors cheerio",
+    "start": "electron .",
+    "start-novsync": "electron . --disable-frame-rate-limit"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
+    "colors": "^1.4.0",
+    "electron": "^15.0.0",
+    "electron-is-dev": "^2.0.0",
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0"
+  }
+}

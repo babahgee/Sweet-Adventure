@@ -1,0 +1,168 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Epic art video game</Name>
+    <RootNamespace>Epic art video game</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>d735ee15-d19a-406a-bfc3-ddd77fe7483c</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>app.js</StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="app.js" />
+    <Content Include="game\assets\extracted\DECOR\bush1.png" />
+    <Content Include="game\assets\extracted\DECOR\bush21.png" />
+    <Content Include="game\assets\extracted\DECOR\bush22.png" />
+    <Content Include="game\assets\extracted\DECOR\bush31.png" />
+    <Content Include="game\assets\extracted\DECOR\bush32.png" />
+    <Content Include="game\assets\extracted\DECOR\bush33.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerB1.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerB2.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerB3.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerB4.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerR1.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerR2.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerR3.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerR4.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerY1.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerY2.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerY3.png" />
+    <Content Include="game\assets\extracted\DECOR\flowerY4.png" />
+    <Content Include="game\assets\extracted\DECOR\grass1.png" />
+    <Content Include="game\assets\extracted\DECOR\grass2.png" />
+    <Content Include="game\assets\extracted\DECOR\grass3.png" />
+    <Content Include="game\assets\extracted\DECOR\rock1.png" />
+    <Content Include="game\assets\extracted\DECOR\rock2.png" />
+    <Content Include="game\assets\extracted\DECOR\rock3.png" />
+    <Content Include="game\assets\extracted\DECOR\sign11.png" />
+    <Content Include="game\assets\extracted\DECOR\sign12.png" />
+    <Content Include="game\assets\extracted\DECOR\sign21.png" />
+    <Content Include="game\assets\extracted\DECOR\sign22.png" />
+    <Content Include="game\assets\extracted\DECOR\sign31.png" />
+    <Content Include="game\assets\extracted\DECOR\sign32.png" />
+    <Content Include="game\assets\extracted\DECOR\sign42.png" />
+    <Content Include="game\assets\extracted\DECOR\spikeL.png" />
+    <Content Include="game\assets\extracted\DECOR\spikeM.png" />
+    <Content Include="game\assets\extracted\DECOR\spikeR.png" />
+    <Content Include="game\assets\extracted\DECOR\stonesign.png" />
+    <Content Include="game\assets\extracted\DECOR\tombstone.png" />
+    <Content Include="game\assets\extracted\GRASS\45ceilingDL.png" />
+    <Content Include="game\assets\extracted\GRASS\45ceilingDR.png" />
+    <Content Include="game\assets\extracted\GRASS\45ceilingUL.png" />
+    <Content Include="game\assets\extracted\GRASS\45ceilingUR.png" />
+    <Content Include="game\assets\extracted\GRASS\45DL.png" />
+    <Content Include="game\assets\extracted\GRASS\45DLS.png" />
+    <Content Include="game\assets\extracted\GRASS\45DR.png" />
+    <Content Include="game\assets\extracted\GRASS\45DRS.png" />
+    <Content Include="game\assets\extracted\GRASS\45middleDL.png" />
+    <Content Include="game\assets\extracted\GRASS\45middleDR.png" />
+    <Content Include="game\assets\extracted\GRASS\45middleUL.png" />
+    <Content Include="game\assets\extracted\GRASS\45middleUR.png" />
+    <Content Include="game\assets\extracted\GRASS\45topUL.png" />
+    <Content Include="game\assets\extracted\GRASS\45topUR.png" />
+    <Content Include="game\assets\extracted\GRASS\45UL.png" />
+    <Content Include="game\assets\extracted\GRASS\45UR.png" />
+    <Content Include="game\assets\extracted\GRASS\bottomL.png" />
+    <Content Include="game\assets\extracted\GRASS\bottomM.png" />
+    <Content Include="game\assets\extracted\GRASS\bottomR.png" />
+    <Content Include="game\assets\extracted\GRASS\bottomS.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingceiling.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingcornerL.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingcornerR.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingfloor.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingL.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingmiddleL.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingmiddleR.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingR.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingtopL.png" />
+    <Content Include="game\assets\extracted\GRASS\ceilingtopR.png" />
+    <Content Include="game\assets\extracted\GRASS\centerTL.png" />
+    <Content Include="game\assets\extracted\GRASS\centerTR.png" />
+    <Content Include="game\assets\extracted\GRASS\floorbottomL.png" />
+    <Content Include="game\assets\extracted\GRASS\floorbottomR.png" />
+    <Content Include="game\assets\extracted\GRASS\floorceiling.png" />
+    <Content Include="game\assets\extracted\GRASS\floorcornerL.png" />
+    <Content Include="game\assets\extracted\GRASS\floorcornerR.png" />
+    <Content Include="game\assets\extracted\GRASS\floorfloor.png" />
+    <Content Include="game\assets\extracted\GRASS\floorL.png" />
+    <Content Include="game\assets\extracted\GRASS\floormiddleL.png" />
+    <Content Include="game\assets\extracted\GRASS\floormiddleR.png" />
+    <Content Include="game\assets\extracted\GRASS\floorR.png" />
+    <Content Include="game\assets\extracted\GRASS\isoDL1.png" />
+    <Content Include="game\assets\extracted\GRASS\isoDL2.png" />
+    <Content Include="game\assets\extracted\GRASS\isoDL3.png" />
+    <Content Include="game\assets\extracted\GRASS\middleL.png" />
+    <Content Include="game\assets\extracted\GRASS\middleM.png" />
+    <Content Include="game\assets\extracted\GRASS\middleR.png" />
+    <Content Include="game\assets\extracted\GRASS\middleS.png" />
+    <Content Include="game\assets\extracted\GRASS\middleTL.png" />
+    <Content Include="game\assets\extracted\GRASS\middleTR.png" />
+    <Content Include="game\assets\extracted\GRASS\singleL.png" />
+    <Content Include="game\assets\extracted\GRASS\singleM.png" />
+    <Content Include="game\assets\extracted\GRASS\singleR.png" />
+    <Content Include="game\assets\extracted\GRASS\singleS.png" />
+    <Content Include="game\assets\extracted\GRASS\topL.png" />
+    <Content Include="game\assets\extracted\GRASS\topM.png" />
+    <Content Include="game\assets\extracted\GRASS\topR.png" />
+    <Content Include="game\assets\extracted\GRASS\topS.png" />
+    <Content Include="game\assets\general\sweet_adventure-export.png" />
+    <Content Include="game\assets\sheets\pts_001_500.png" />
+    <Content Include="game\engine\essentials\collection.js" />
+    <Content Include="game\engine\essentials\generateUniqueID.js" />
+    <Content Include="game\engine\essentials\keyupdater.js" />
+    <Content Include="game\engine\essentials\loadImage.js" />
+    <Content Include="game\engine\essentials\math.js" />
+    <Content Include="game\engine\main.js" />
+    <Content Include="game\engine\players\localplayer\base.js" />
+    <Content Include="game\engine\rendering\renderobject.js" />
+    <Content Include="game\engine\terrain\terrainBlock.js" />
+    <Content Include="game\scenes\test\index.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="game\scenes\test\index.js" />
+    <Content Include="game\scenes\test\terrain.js" />
+    <Content Include="game\styles\static\static.essential.css" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="game\" />
+    <Folder Include="game\assets\extracted\" />
+    <Folder Include="game\assets\extracted\DECOR\" />
+    <Folder Include="game\assets\extracted\GRASS\" />
+    <Folder Include="game\assets\general\" />
+    <Folder Include="game\assets\sheets\" />
+    <Folder Include="game\engine\" />
+    <Folder Include="game\engine\essentials\" />
+    <Folder Include="game\engine\rendering\" />
+    <Folder Include="game\engine\players\" />
+    <Folder Include="game\engine\players\localplayer\" />
+    <Folder Include="game\engine\terrain\" />
+    <Folder Include="game\engine\shapes\" />
+    <Folder Include="game\assets\" />
+    <Folder Include="game\styles\" />
+    <Folder Include="game\scenes\" />
+    <Folder Include="game\scenes\test\" />
+    <Folder Include="game\styles\static\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+</Project>
