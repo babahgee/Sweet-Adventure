@@ -1,13 +1,13 @@
 // Importing essentials.
 import { generateUniqueID } from "./essentials/generateUniqueID.js";
-import { renderObjects } from "./rendering/renderobject.js";
+import { RenderObject, renderObjects } from "./rendering/renderobject.js";
 
 // Import prototypes
 import { pt_loadImageSync } from "./essentials/loadImage.js";
-import { pt_terrain_block, pt_terrain_block_collection } from "./terrain/terrainblock.js";
 
 import { pt_localplayer } from "./players/localplayer/base.js";
 import { pt_collection } from "./essentials/collection.js";
+import { pt_block, pt_blocks, pt_chunks } from "./terrain/block.js";
 
 /**@type {HTMLCanvasElement} */
 export let canvas = null;
@@ -21,6 +21,8 @@ export const renderOffset = {
     y: 0
 }
 
+export const renderDistance = 40;
+
 export const renderScale = {
     x: 1,
     y: 1,
@@ -28,6 +30,12 @@ export const renderScale = {
         this.x = dimension;
         this.y = dimension;
     }
+}
+
+export const mouse = {
+    x: 0,
+    y: 0,
+    isPressing: false
 }
 
 window["renderScale"] = renderScale;
@@ -59,6 +67,21 @@ export function defineCanvasRenderer(canvasElement) {
 
     });
 
+    canvas.addEventListener("mousemove", function (event) {
+
+        mouse.x = event.clientX;
+        mouse.y = event.clientY;
+
+    });
+
+    canvas.addEventListener("mousedown", function (event) {
+        mouse.isPressing = true;
+    });
+
+    canvas.addEventListener("mouseup", function (event) {
+        mouse.isPressing = false;
+    });
+
 }
 
 export let fps = -Date.now(),
@@ -78,6 +101,32 @@ export let simulationFrameRate = 60,
     simulationLagOffset = 0,
     simulationPaused = false,
     previousSimulationToggleState = false;
+
+export const playerCoords = {
+    x: 0,
+    y: 0
+}
+
+/**@type {pt_localplayer} */
+export let staticPlayer;
+
+/**
+ * Sets a update range on a player instance
+ * @param {pt_localplayer} playerInstance
+ */
+export function setUpdateRangeOnPlayer(playerInstance) {
+
+    if (typeof playerInstance !== "object" || !(playerInstance instanceof pt_localplayer)) {
+
+        throw new Error("The given parameter (as playerInstance) is not a pt_localplayer instance.");
+
+        return;
+
+    }
+
+    staticPlayer = playerInstance;
+
+}
 
 export function updateRenderObjects(timeStamp) {
 
@@ -107,21 +156,50 @@ export function updateRenderObjects(timeStamp) {
     ctx.translate(renderOffset.x, renderOffset.y);
     ctx.scale(renderScale.x, renderScale.y);
 
-
     let i = 0;
 
-    while (i < renderObjects.length) {
+    if (staticPlayer) {
 
-        /**@type {RenderObject} */
-        const object = renderObjects[i];
+        staticPlayer.UpdateMain(secondsPassed);
 
-        if (typeof object.UpdateMain == "function") {
+        const x = Math.round(staticPlayer.x / 30);
+
+        for (let i = x - renderDistance; i < x + renderDistance; i++) {
+
+            const chunk = pt_chunks[i];
+
+            if (typeof chunk !== "undefined") {
+
+                for (let y = 0; y < chunk.length; y++) {
+
+                    const block = chunk[y];
+
+                    if (typeof block.UpdateMain == "function") {
 
 
-            object.UpdateMain(secondsPassed);
+                        block.UpdateMain(secondsPassed);
+                    }
+
+                }
+
+            }
+
         }
 
-        i += 1;
+    } else {
+        while (i < renderObjects.length) {
+
+            /**@type {RenderObject} */
+            const object = renderObjects[i];
+
+            if (typeof object.UpdateMain == "function") {
+
+
+                object.UpdateMain(secondsPassed);
+            }
+
+            i += 1;
+        }
     }
 
     ctx.restore();
@@ -136,6 +214,7 @@ export function updateRenderObjects(timeStamp) {
 
     ctx.fillText(fps + " fps", 10, 10);
     ctx.fillText(`Renderoffset: ${renderOffset.x} - ${renderOffset.y}`, 10, 25);
+    ctx.fillText(`Player coords: x: ${playerCoords.x} y:${playerCoords.y}`, 10, 40);
 
     ctx.restore();
 
@@ -154,10 +233,10 @@ export function updateRenderObjects(timeStamp) {
 export const loadImageSync = pt_loadImageSync;
 export const Collection = pt_collection;
 
-// Terrain exports
-export const Terrain = {
-    TerrainBlock: pt_terrain_block,
-    BlockCollection: pt_terrain_block_collection
-}
-
 export const LocalPlayer = pt_localplayer;
+
+export const Terrain = {
+    Block: pt_block,
+    Blocks: pt_blocks,
+    Chunks: pt_chunks
+}

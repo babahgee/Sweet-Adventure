@@ -35,6 +35,7 @@
     <Content Include="game\assets\extracted\DECOR\bush31.png" />
     <Content Include="game\assets\extracted\DECOR\bush32.png" />
     <Content Include="game\assets\extracted\DECOR\bush33.png" />
+    <Content Include="game\assets\extracted\DECOR\cobblestone.png" />
     <Content Include="game\assets\extracted\DECOR\flowerB1.png" />
     <Content Include="game\assets\extracted\DECOR\flowerB2.png" />
     <Content Include="game\assets\extracted\DECOR\flowerB3.png" />
@@ -134,7 +135,7 @@
     <Content Include="game\engine\main.js" />
     <Content Include="game\engine\players\localplayer\base.js" />
     <Content Include="game\engine\rendering\renderobject.js" />
-    <Content Include="game\engine\terrain\terrainBlock.js" />
+    <Content Include="game\engine\terrain\block.js" />
     <Content Include="game\scenes\test\index.html">
       <SubType>Code</SubType>
     </Content>

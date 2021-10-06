@@ -39,6 +39,88 @@ export class RenderObject {
                 break;
         }
     }
+
+    get center() {
+        return {
+            x: this.x + this.width * .5,
+            y: this.y + this.height * .5
+        }
+    }
+
+    get bottom() {
+        return this.y + this.height;
+    }
+    get top() {
+        return this.y;
+    }
+    get left() {
+        return this.x;
+    }
+    get right() {
+        return this.x + this.width;
+    }
+
+    /**
+     * Get collision state.
+     * @param {RenderObject} obj
+     */
+    GetCollision(obj) {
+
+        if (typeof obj == "undefined" || typeof obj.x == "undefined" || typeof obj.y == "undefined") return;
+
+        if (this.top > obj.bottom || this.right < obj.left || this.bottom < obj.top || this.left > obj.right) {
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Resolves collision state.
+     * @param {RenderObject} obj
+     */
+    ResolveCollision(obj) {
+
+        if (typeof obj == "undefined" || typeof obj.x == "undefined" || typeof obj.y == "undefined") return;
+
+        const vectorX = this.center.x - obj.center.x,
+            vectorY = this.center.y - obj.center.y;
+
+        const states = {
+            top: false,
+            left: false,
+            bottom: false,
+            right: false
+        };
+
+        if (vectorY * vectorY > vectorX * vectorX) {
+
+            if (vectorY > 0) {
+                states.bottom = true;
+                states.top = false;
+            } else {
+                states.top = true;
+                states.bottom = false;
+            }
+
+        } else {
+            
+            if (vectorX > 0) {
+
+                states.right = true;
+                states.left = false;
+
+            } else {
+                states.right = false;
+                states.left = true;
+            }
+
+        }
+
+        return states;
+    }
+
     /**Destroys render object. */
     Destroy() {
 
@@ -48,9 +130,11 @@ export class RenderObject {
 
             const object = renderObjects[i];
 
-            if (object.id == this.id) {
+            if (object.id.id == this.id.id) {
 
                 if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
+
+                console.log(true);
 
                 renderObjects.splice(i, 1);
             }
