@@ -70,3 +70,10 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, button, caption, ce
     outline: none;
     border: none;
 }
+
+canvas.temp-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+}

@@ -32,11 +32,19 @@ export class pt_block extends RenderObject {
 
         this.childType = "terrain:terrainblock";
 
+        this.maxHealth = 100;
+
+        this.health = this.maxHealth;
+
         this.border = false;
 
         this.collision = true;
 
+        this.destructable = true;
+
         this.shadow = false;
+
+        this.shadowOpacity = .9;
 
         this.width = typeof width == "number" ? width : 30;
         this.height = typeof height == "number" ? height : 30;
@@ -75,52 +83,66 @@ export class pt_block extends RenderObject {
 
         ctx.drawImage(this.texture, this.x, this.y, this.width, this.height);
 
-        if (this.border) {
+        ctx.beginPath();
 
-            ctx.strokeStyle = "#fff";
-            ctx.strokeRect(this.x, this.y, 30, 30);
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = `rgba(0, 0, 0, ${this.shadowOpacity})`;
+        ctx.fill();
 
-        }
+        ctx.closePath();
 
         ctx.restore();
+
+        // Health wrapper
+        if (this.health !== 100) {
+            ctx.save();
+
+            ctx.beginPath();
+
+            ctx.fillStyle = "#1d1d1d";
+            ctx.fillRect(this.x + (this.width / 2), this.y - 5, this.width / 2, 3);
+
+            ctx.fillStyle = "lime";
+            ctx.fillRect(this.x + (this.width / 2), this.y - 5, this.width / 100 * this.health / 2, 3);
+
+
+            ctx.closePath();
+
+
+            ctx.restore();
+     
+        }
     }
-    update(secondsPassed) {
+    kill(x, y, castingRange) {
 
+        const xCoord = Math.round(x / 30),
+            yCoord = Math.round(y / 30);
+        for (let x = xCoord - castingRange; x < xCoord + castingRange; x++) {
 
-        const fixedMouseX = (mouse.x - renderOffset.x) / renderScale.x,
-            fixedMouseY = (mouse.y - renderOffset.y) / renderScale.y;
+            const chunk = pt_chunks[x];
 
-        if (fixedMouseX > this.x && fixedMouseX < this.x + this.width && fixedMouseY > this.y && fixedMouseY < this.y + this.height) {
-            if (mouse.isPressing) {
+            if (typeof chunk !== "undefined") {
+                for (let y = 0; y < chunk.length; y++) {
 
-                if (typeof staticPlayer !== "undefined") {
+                    const block = chunk[y];
 
-                    const xCoord = Math.round(staticPlayer.x / 30),
-                        yCoord = Math.round(staticPlayer.y / 30);
+                    // if (block.y == this.y - this.height) block.shadow = true;
 
-                    for (let x = xCoord - renderDistance; x < xCoord + renderDistance; x++) {
+                    if (block.id == this.id) {
 
-                        const chunk = pt_chunks[x];
-
-                        if (typeof chunk !== "undefined") {
-                            for (let y = 0; y < chunk.length; y++) {
-
-                                const block = chunk[y];
-
-                                if (block.id == this.id) chunk.splice(y, 1);
-
-                            }
-                        }
+                        chunk.splice(y, 1);
+                        //this.Destroy();
 
                     }
-                }
 
-                this.Destroy();
+                }
             }
 
-        } else {
-            this.border = false;
         }
+
+        this.SlowDestroy();
+    }
+    update(secondsPassed) {
 
         if (this.opacity < 1) {
             this.opacity += 0.1;

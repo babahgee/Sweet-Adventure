@@ -7,7 +7,11 @@ const top = await engine.loadImageSync("../../assets/extracted/GRASS/topM.png"),
     bottomM = await engine.loadImageSync("../../assets/extracted/GRASS/bottomM.png"),
     bottomR = await engine.loadImageSync("../../assets/extracted/GRASS/bottomR.png"),
     bush1 = await engine.loadImageSync("../../assets/extracted/DECOR/bush1.png"),
-    bushCollection = [await engine.loadImageSync("../../assets/extracted/DECOR/bush31.png"), await engine.loadImageSync("../../assets/extracted/DECOR/bush32.png"), await engine.loadImageSync("../../assets/extracted/DECOR/bush33.png")],
+    bushCollection = [
+        await engine.loadImageSync("../../assets/extracted/DECOR/bush31.png"),
+        await engine.loadImageSync("../../assets/extracted/DECOR/bush32.png"),
+        await engine.loadImageSync("../../assets/extracted/DECOR/bush33.png")
+    ],
     flowerB1 = await engine.loadImageSync("../../assets/extracted/DECOR/flowerB1.png"),
     flowerB2 = await engine.loadImageSync("../../assets/extracted/DECOR/flowerR2.png"),
     flowerB3 = await engine.loadImageSync("../../assets/extracted/DECOR/flowerB3.png"),
@@ -20,7 +24,7 @@ const top = await engine.loadImageSync("../../assets/extracted/GRASS/topM.png"),
 export const generationOptions = {
     baseYLevel: 400,
     width: window.innerWidth * 2,
-    height: 1300
+    height: 1300 * 5
 }
 
 export function generateTerrain() {
@@ -34,7 +38,7 @@ export function generateTerrain() {
 
         const topLayerHeight = 0;
         const dirtLayerHeight = math.randomBetween(10, 15);
-        const stoneLayerHeight = 30;
+        const stoneLayerHeight = 170;
 
         for (let y = 0; y < yLength; y++) {
 
@@ -52,6 +56,11 @@ export function generateTerrain() {
 
                             grass = new engine.Terrain.Block(bush1, x * 30, generationOptions.baseYLevel - y - 30, 30, 30);
                             grass.setCollisionState(false);
+
+                            grass.maxHealth = 20;
+
+                            grass.shadowOpacity = 0;
+
                             xChunk.push(grass);
 
                             break;
@@ -60,6 +69,11 @@ export function generateTerrain() {
                             for (let i = 0; i < 3; i++) {
                                 grass = new engine.Terrain.Block(bushCollection[i], x * 30 + (i * 30), generationOptions.baseYLevel - y - 30, 30, 30);
                                 grass.setCollisionState(false);
+
+                                grass.maxHealth = 20;
+
+                                grass.shadowOpacity = 0;
+
                                 xChunk.push(grass);
                             }
 
@@ -69,10 +83,14 @@ export function generateTerrain() {
 
                     block = new engine.Terrain.Block(top, x * 30, generationOptions.baseYLevel + (y * 30), 30, 30);
 
+                    block.shadowOpacity = 0;
+
                     xChunk.push(block);
                     break;
                 case (y > topLayerHeight - 1 && y < dirtLayerHeight):
                     block = new engine.Terrain.Block(dirt, x * 30, generationOptions.baseYLevel + (y * 30), 30, 30);
+
+                    block.shadowOpacity = 1 / dirtLayerHeight * y;
 
                     xChunk.push(block);
                     break;

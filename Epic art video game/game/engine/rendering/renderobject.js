@@ -2,6 +2,16 @@ import { generateUniqueID } from "../essentials/generateUniqueID.js";
 import { canvas, ctx, renderOffset, renderScale } from "../main.js";
 
 
+async function sleep(milliseconds) {
+
+    return new Promise(function (resolve, reject) {
+
+        setTimeout(resolve, milliseconds);
+
+    });
+
+}
+
 /**@type {Array} */
 export const renderObjects = [];
 
@@ -69,8 +79,22 @@ export class RenderObject {
         if (typeof obj == "undefined" || typeof obj.x == "undefined" || typeof obj.y == "undefined") return;
 
         if (this.top > obj.bottom || this.right < obj.left || this.bottom < obj.top || this.left > obj.right) {
+
             return false;
         }
+
+        const vectorX = this.center.x - obj.center.x,
+            vectorY = this.center.y - obj.center.y;
+
+        ctx.beginPath();
+
+        ctx.moveTo(this.center.x, this.center.y);
+        ctx.lineTo(obj.center.x, obj.center.y);
+
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+
+        ctx.closePath();
 
         return true;
 
@@ -96,13 +120,15 @@ export class RenderObject {
 
         if (vectorY * vectorY > vectorX * vectorX) {
 
-            if (vectorY > 0) {
-                states.bottom = true;
-                states.top = false;
-            } else {
-                states.top = true;
-                states.bottom = false;
-            }
+            //if (vectorY > 0) {
+
+            //    return "top";
+
+            //} else {
+
+            //    return "bottom";
+
+            //}
 
         } else {
             
@@ -112,13 +138,38 @@ export class RenderObject {
                 states.left = false;
 
             } else {
-                states.right = false;
-                states.left = true;
+
+                states.right = true;
+                states.left = false;
+
             }
 
         }
 
         return states;
+    }
+
+    async SlowDestroy() {
+
+        let i = 0;
+
+        while (i < renderObjects.length) {
+
+            await sleep(10);
+
+            const object = renderObjects[i];
+
+            if (object.id.id == this.id.id) {
+                if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
+
+                renderObjects.splice(i, 1);
+
+                i = renderObjects.length;
+            }
+
+            i += 1;
+        }
+
     }
 
     /**Destroys render object. */
@@ -173,4 +224,35 @@ export class RenderObject {
 
 
     }
+    static DestroyAll() {
+
+        let i = 0;
+
+        while (i < renderObjects.length) {
+
+            const object = renderObjects[i];
+
+            renderObjects.splice(i, 1);
+
+            i += 1;
+        }
+
+    }
+
+    /**
+     * Gets render object by id.
+     * @param {string} id
+     * @returns {RenderObject}
+     */
+    static GetObjectByID(id) {
+
+        if (typeof id == "string") {
+
+        } else {
+            return renderObjects;
+        }
+
+    }
 }
+
+window["RenderObject"] = RenderObject;

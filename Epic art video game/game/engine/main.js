@@ -8,6 +8,9 @@ import { pt_loadImageSync } from "./essentials/loadImage.js";
 import { pt_localplayer } from "./players/localplayer/base.js";
 import { pt_collection } from "./essentials/collection.js";
 import { pt_block, pt_blocks, pt_chunks } from "./terrain/block.js";
+import { Debug } from "./essentials/debug.js";
+import { pt_spritesheet_cutter } from "./essentials/spritesheetCutter.js";
+import { pt_animator } from "./essentials/animator.js";
 
 /**@type {HTMLCanvasElement} */
 export let canvas = null;
@@ -32,6 +35,7 @@ export const renderScale = {
     }
 }
 
+
 export const mouse = {
     x: 0,
     y: 0,
@@ -53,9 +57,16 @@ export function defineCanvasRenderer(canvasElement) {
         return;
     }
 
+    Debug.Log("engine", "Initializing graphics engine...", "color: yellow;");
+
     canvas = canvasElement;
 
     ctx = canvas.getContext("2d");
+
+    if (typeof ctx == null) throw new Error("Cannot initialize 2d rendering context.");
+
+    Debug.Log("engine", "Succesfully initialized 2d rendering context.", "color: lime;");
+
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -128,6 +139,8 @@ export function setUpdateRangeOnPlayer(playerInstance) {
 
 }
 
+const bg = await pt_loadImageSync("../../assets/general/test-parallax-wallpaper.png");
+
 export function updateRenderObjects(timeStamp) {
 
     secondsPassed = (timeStamp - oldTimeStamp) / 100;
@@ -135,18 +148,21 @@ export function updateRenderObjects(timeStamp) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Scene background.
     ctx.save();
     ctx.beginPath();
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    ctx.drawImage(bg, 0, 0);
 
-    gradient.addColorStop(0, "#5292ff");
-    gradient.addColorStop(1, "#94beff");
+    //const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+
+    //gradient.addColorStop(0, "#5292ff");
+    //gradient.addColorStop(1, "#94beff");
 
 
 
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    //ctx.fillStyle = gradient;
+    //ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     ctx.closePath();
     ctx.restore();
@@ -159,8 +175,6 @@ export function updateRenderObjects(timeStamp) {
     let i = 0;
 
     if (staticPlayer) {
-
-        staticPlayer.UpdateMain(secondsPassed);
 
         const x = Math.round(staticPlayer.x / 30);
 
@@ -185,6 +199,8 @@ export function updateRenderObjects(timeStamp) {
             }
 
         }
+
+        staticPlayer.UpdateMain(secondsPassed);
 
     } else {
         while (i < renderObjects.length) {
@@ -232,6 +248,9 @@ export function updateRenderObjects(timeStamp) {
 // Essentials
 export const loadImageSync = pt_loadImageSync;
 export const Collection = pt_collection;
+
+export const SpriteSheetCutter = pt_spritesheet_cutter;
+export const Animator = pt_animator;
 
 export const LocalPlayer = pt_localplayer;
 

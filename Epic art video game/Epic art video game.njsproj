@@ -126,12 +126,17 @@
     <Content Include="game\assets\extracted\GRASS\topR.png" />
     <Content Include="game\assets\extracted\GRASS\topS.png" />
     <Content Include="game\assets\general\sweet_adventure-export.png" />
+    <Content Include="game\assets\general\test-parallax-wallpaper.png" />
     <Content Include="game\assets\sheets\pts_001_500.png" />
+    <Content Include="game\assets\sprites\player-spritesheet-01.png" />
+    <Content Include="game\engine\essentials\animator.js" />
     <Content Include="game\engine\essentials\collection.js" />
     <Content Include="game\engine\essentials\generateUniqueID.js" />
     <Content Include="game\engine\essentials\keyupdater.js" />
     <Content Include="game\engine\essentials\loadImage.js" />
+    <Content Include="game\engine\essentials\debug.js" />
     <Content Include="game\engine\essentials\math.js" />
+    <Content Include="game\engine\essentials\spritesheetCutter.js" />
     <Content Include="game\engine\main.js" />
     <Content Include="game\engine\players\localplayer\base.js" />
     <Content Include="game\engine\rendering\renderobject.js" />
@@ -151,6 +156,7 @@
     <Folder Include="game\assets\extracted\DECOR\" />
     <Folder Include="game\assets\extracted\GRASS\" />
     <Folder Include="game\assets\general\" />
+    <Folder Include="game\assets\sprites\" />
     <Folder Include="game\assets\sheets\" />
     <Folder Include="game\engine\" />
     <Folder Include="game\engine\essentials\" />
