@@ -1,4 +1,6 @@
+import { Debug } from "../essentials/debug.js";
 import { generateUniqueID } from "../essentials/generateUniqueID.js";
+import { pt_operation } from "../essentials/operations.js";
 import { canvas, ctx, renderOffset, renderScale } from "../main.js";
 
 
@@ -151,11 +153,20 @@ export class RenderObject {
 
     async SlowDestroy() {
 
-        let i = 0;
+        const operationID = "operation:" + generateUniqueID(18).id;
 
-        while (i < renderObjects.length) {
+        const operation = new pt_operation(operationID, 0, renderObjects.length);
 
-            await sleep(10);
+        operation.On("end", function (time) {
+            Debug.Log(`Succesfully executed operation '${operationID}' in ${time / 1000} seconds`);
+        });
+
+        let i = 0,
+            o = renderObjects.length / 2;
+
+        while (i < renderObjects.length / 2) {
+
+            await sleep(1);
 
             const object = renderObjects[i];
 
@@ -164,10 +175,41 @@ export class RenderObject {
 
                 renderObjects.splice(i, 1);
 
-                i = renderObjects.length;
+                i = renderObjects.length / 2;
+                o = renderObjects.length;
+
+                operation.Destroy();
+
+                return;
             }
 
             i += 1;
+
+            operation.Update(i);
+        }
+
+        while (o < renderObjects.length) {
+
+            await sleep(1);
+
+            const object = renderObjects[o];
+
+            if (object.id.id == this.id.id) {
+                if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
+
+                renderObjects.splice(o, 1);
+
+                i = renderObjects.length / 2;
+                o = renderObjects.length;
+
+                operation.Destroy();
+
+                return;
+            }
+
+            o += 1;
+
+            operation.Update(o);
         }
 
     }
@@ -204,7 +246,7 @@ export class RenderObject {
                 if (this.x > -((renderOffset.x + canvas.width) / renderScale.x) &&
                     this.x < -((renderOffset.x - canvas.width) / renderScale.x) &&
                     this.y > -((renderOffset.y + canvas.height) / renderScale.y) &&
-                    this.y < -((renderOffset.y - (canvas.height * 2))) / renderScale.y) {
+                    this.y < -((renderOffset.y - (canvas.height))) / renderScale.y) {
 
                     if (typeof this.update == "function")
                         this.update(secondsPassed);

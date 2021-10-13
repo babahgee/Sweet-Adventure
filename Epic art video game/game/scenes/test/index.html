@@ -31,6 +31,11 @@
     <title>Sweet Adventure - Dev 0.0.1</title>
 
     <link href="../../styles/static/static.essential.css" type="text/css" rel="stylesheet" />
+    <link href="../../styles/static/static.titlebar.css" type="text/css" rel="stylesheet" />
+    <link href="../../styles/static/static.loader.css" type="text/css" rel="stylesheet" />
+
+    <link href="../../assets/fonts/index.css" type="text/css" rel="stylesheet"/>
+
 
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -41,6 +46,58 @@
 <body>
     <div class="app electron-app main-game">
         <div class="container">
+
+            <div class="app-titlebar">
+                <div class="container">
+
+                    <div class="titlebar-draggable">
+
+                        <div class="titlebar-title">
+                            <span>Sweet Adventure</span>
+                        </div>
+
+                        <div class="titlebar-vl"></div>
+
+                        <div class="titlebar-version">
+                            <span>Version 0.3.0</span>
+                        </div>
+
+                        <div class="titlebar-actionbar">
+                            <div class="actionbar-item item-framerate">60fps</div>
+                            <div class="actionbar-item item-operations">0 operations</div>
+                            <div class="actionbar-item item-player-coords">Coordinates x: 0  y: 0</div>
+                            <div class="actionbar-item item-renderoffset">Render offset x: 0  y: 0</div>
+                        </div>
+
+                    </div>
+
+                    <div class="titlebar-controls">
+                        <div class="titlebar-controls-control control-close"></div>
+                        <div class="titlebar-controls-control control-maximize"></div>
+                        <div class="titlebar-controls-control control-minimize"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-loader">
+                <div class="container">
+
+                    <div class="loader-container-centered">
+                        <div class="container">
+
+                            <div class="loader-icon">
+                                <img src="../../assets/general/sweet_adventure-export.png"/>
+                            </div>
+
+                            <div class="loader-text">
+                                <span>Generating world</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <div class="renderer-scene-container">
                 <canvas class="renderer-scene"></canvas>

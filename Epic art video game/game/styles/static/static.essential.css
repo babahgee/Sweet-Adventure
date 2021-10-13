@@ -49,16 +49,16 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, button, caption, ce
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .renderer-scene-container {
     width: 100vw;
-    height: 100vh;
-    position: absolute;
+    height: calc(100vh - 25px);
+    /*    position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 1;*/
 }
 
 .renderer-scene-container canvas {
@@ -76,4 +76,14 @@ canvas.temp-canvas {
     top: 0;
     left: 0;
     z-index: 20;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.app-contents {
+    width: 100%;
+    height: calc(100% - 25px);
+    overflow-x: hidden;
+    overflow-y: auto;
 }

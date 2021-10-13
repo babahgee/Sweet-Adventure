@@ -173,7 +173,7 @@ export class pt_localplayer extends RenderObject {
                                     if (block.destructable) {
 
                                         if (block.health > 0) {
-                                            block.health -= 20;
+                                            block.health -= 50;
                                         } else {
 
                                             block.kill(this.x, this.y, this.mouse.castingRange);
@@ -208,7 +208,7 @@ export class pt_localplayer extends RenderObject {
         if (this.gravity) this.velY += 5 * secondsPassed;
 
 
-        for (let i = xCoord - 100; i < xCoord + 100; i++) {
+        for (let i = xCoord - 10; i < xCoord + 10; i++) {
 
             const chunk = pt_chunks[i]; 
 
@@ -219,34 +219,36 @@ export class pt_localplayer extends RenderObject {
                     /**@type {pt_block} */
                     const block = chunk[y];
 
-                    /*block.shadowOpacity = -pd(this.x, this.y, block.x, block.y).directionX;*/
+                    if (typeof block !== "undefined") {
+                        // block.opacity = 0;
 
-                    if (this.gravity) {
+                        if (this.gravity) {
 
-                        const collision = block.GetCollision(this),
-                            collisionState = block.ResolveCollision(this);
+                            const collision = block.GetCollision(this),
+                                collisionState = block.ResolveCollision(this);
 
-                        if (collision && block.collision) {
+                            if (collision && block.collision) {
 
-                            if (collisionState.right) {
-                                this.x = block.x - this.width;
-                                this.velX = 0;
+                                if (collisionState.right) {
+                                    this.x = block.x - this.width;
+                                    this.velX = 0;
 
+                                }
+                                if (collisionState.left) {
+                                    this.x = block.x + this.width;
+                                    this.velX = 0;
+                                }
+
+                                if (!collisionState.right && !collisionState.left) {
+                                    this.velY = 0;
+                                    this.y = block.y - this.height;
+                                }
                             }
-                            if (collisionState.left) {
-                                this.x = block.x + this.width;
-                                this.velX = 0;
-                            }
 
-                            if (!collisionState.right && !collisionState.left) {
-                                this.velY = 0;
-                                this.y = block.y - this.height;
+                        } else {
+                            if (block.x > this.x - 100 && block.x < this.x + 100 && block.y > this.y - 100 && block.y < this.y + 100) {
+                                if (block.collision) block.opacity = -.1;
                             }
-                        }
-
-                    } else {
-                        if (block.x > this.x - 100 && block.x < this.x + 100 && block.y > this.y - 100 && block.y < this.y + 100) {
-                            if (block.collision) block.opacity = -.1;
                         }
                     }
 

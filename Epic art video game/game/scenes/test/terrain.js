@@ -1,5 +1,6 @@
 import * as engine from "../../engine/main.js";
 import * as math from "../../engine/essentials/math.js";
+import { get4v4ImageData } from "../../engine/rendering/getPixelData.js";
 
 const top = await engine.loadImageSync("../../assets/extracted/GRASS/topM.png"),
     dirt = await engine.loadImageSync("../../assets/extracted/GRASS/middleM.png"),
@@ -23,9 +24,13 @@ const top = await engine.loadImageSync("../../assets/extracted/GRASS/topM.png"),
 
 export const generationOptions = {
     baseYLevel: 400,
-    width: window.innerWidth * 2,
+    width: window.innerWidth * 10,
     height: 1300 * 5
 }
+
+const grassPixelData = get4v4ImageData(bush1),
+    dirtPixelData = get4v4ImageData(dirt),
+    cobbleStonePixelData = get4v4ImageData(cobblestone);
 
 export function generateTerrain() {
     // Calculate x length.
@@ -49,13 +54,15 @@ export function generateTerrain() {
 
                     let grass;
 
-                    const randomGrassCount = math.randomBetween(0, 10);
+                    const randomGrassCount = math.randomBetween(0, 5);
 
                     switch (randomGrassCount) {
                         case 0:
 
                             grass = new engine.Terrain.Block(bush1, x * 30, generationOptions.baseYLevel - y - 30, 30, 30);
                             grass.setCollisionState(false);
+
+                            grass.pixelParticleData = grassPixelData;
 
                             grass.maxHealth = 20;
 
@@ -70,6 +77,8 @@ export function generateTerrain() {
                                 grass = new engine.Terrain.Block(bushCollection[i], x * 30 + (i * 30), generationOptions.baseYLevel - y - 30, 30, 30);
                                 grass.setCollisionState(false);
 
+                                grass.pixelParticleData = grassPixelData;
+
                                 grass.maxHealth = 20;
 
                                 grass.shadowOpacity = 0;
@@ -83,6 +92,8 @@ export function generateTerrain() {
 
                     block = new engine.Terrain.Block(top, x * 30, generationOptions.baseYLevel + (y * 30), 30, 30);
 
+                    block.pixelParticleData = dirtPixelData;
+
                     block.shadowOpacity = 0;
 
                     xChunk.push(block);
@@ -90,12 +101,16 @@ export function generateTerrain() {
                 case (y > topLayerHeight - 1 && y < dirtLayerHeight):
                     block = new engine.Terrain.Block(dirt, x * 30, generationOptions.baseYLevel + (y * 30), 30, 30);
 
+                    block.pixelParticleData = dirtPixelData;
+
                     block.shadowOpacity = 1 / dirtLayerHeight * y;
 
                     xChunk.push(block);
                     break;
                 case (y > dirtLayerHeight - 1 && y < dirtLayerHeight + stoneLayerHeight):
                     block = new engine.Terrain.Block(cobblestone, x * 30, generationOptions.baseYLevel + (y * 30), 30, 30);
+
+                    block.pixelParticleData = cobbleStonePixelData;
 
                     xChunk.push(block);
                     break;

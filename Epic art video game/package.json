@@ -1,7 +1,11 @@
 {
   "name": "epic-art-video-game",
-  "version": "0.0.1",
-  "description": "Epic art video game",
+  "version": "0.3.0",
+  "description": "Sweet Adventure",
+  "developers": {
+    "name": "Babah Gee",
+    "name": "Witchdoctor"
+  }
   "main": "app.js",
   "author": {
     "name": "Babah Gee",
@@ -10,7 +14,8 @@
   "scripts": {
     "install": "npm install express electron-is-dev electron socket.io socket.io-client colors cheerio",
     "start": "electron .",
-    "start-novsync": "electron . --disable-frame-rate-limit"
+    "start-novsync": "electron . --disable-frame-rate-limit",
+    "build": "electron-packager . Sweet-Adventure --overwrite --asar=true --platform=win32 --arch=ia32 --icon=game/assets/icons/general/favico.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Sweet Adventure\""
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",
@@ -20,5 +25,8 @@
     "express": "^4.17.1",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0"
+  },
+  "repository": {
+    "url": "https://github.com/babahgee/Sweet-Adventure"
   }
 }

@@ -1,8 +1,12 @@
+import "../../engine/window/titlebar.js";
+
 import * as engine from "../../engine/main.js";
 import * as math from "../../engine/essentials/math.js";
+
 import { generateTerrain } from "./terrain.js";
 
-const canvas = document.querySelector(".renderer-scene");
+const canvas = document.querySelector(".renderer-scene"),
+    loader = document.querySelector(".app-loader");
 
 // Define canvas renderer
 engine.defineCanvasRenderer(canvas);
@@ -19,6 +23,8 @@ playerAnimator.SetAnimationRange("standing", 0, 1);
 playerAnimator.SetAnimationRange("walking-right", 1, 11);
 playerAnimator.SetAnimationRange("walking-left", 11, 24);
 
+generateTerrain();
+
 // Create player object
 const mainPlayer = new engine.LocalPlayer(10, 300);
 
@@ -26,6 +32,21 @@ mainPlayer.SetFrameAnimator(playerAnimator);
 
 engine.setUpdateRangeOnPlayer(mainPlayer);
 
-generateTerrain();
+window.addEventListener("load", function () {
 
-engine.updateRenderObjects();
+    engine.updateRenderObjects();
+
+    this.setTimeout(function () {
+
+        loader.classList.add("fadeout");
+
+        setTimeout(function () {
+
+            loader.classList.add("hidden");
+            loader.classList.remove("fadeout");
+
+        }, 300);
+
+    }, 2000);
+
+});

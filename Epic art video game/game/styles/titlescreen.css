@@ -1,0 +1,84 @@
+.app-contents {
+    background: url(../assets/general/test-parallax-wallpaper.png);
+    background-size: 100% 100%;
+}
+
+.app-centered-container {
+    width: 180px;
+    height: 200px;
+    padding: 60px 15px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: #141523;
+    border-radius: 5px;
+}
+
+.play-icon {
+    width: 60px;
+    height: 60px;
+    margin: auto;
+}
+
+.play-icon img {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+.play-buttons-wrapper {
+    width: 100%;
+    height: auto;
+    margin: 40px 0px;
+}
+
+.play-button {
+    width: 90%;
+    height: 20px;
+    margin: 10px auto;
+    text-align: center;
+    background: #0f0f19;
+    padding: 10px 0px;
+    border-radius: 30px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.play-button span {
+    font-family: Montserrat;
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+    .play-button:hover {
+        background: #2d2f4b;
+    }
+
+.app-footer {
+    width: 100vw;
+    height: 40px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #141523;
+}
+
+.app-footer-text {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.app-footer-text span {
+    font-family: RobotoLight;
+    font-size: 10px;
+    color: #fff;
+    user-select: none;
+}

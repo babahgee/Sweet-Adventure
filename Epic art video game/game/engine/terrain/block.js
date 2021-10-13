@@ -1,3 +1,4 @@
+import { pt_particle_texture } from "../effects/particle.js";
 import { pt_collection } from "../essentials/collection.js";
 import { generateUniqueID } from "../essentials/generateUniqueID.js";
 import { ctx, mouse, renderDistance, renderOffset, renderScale, staticPlayer } from "../main.js";
@@ -44,6 +45,8 @@ export class pt_block extends RenderObject {
 
         this.shadow = false;
 
+        this.pixelParticleData = null;
+
         this.shadowOpacity = .9;
 
         this.width = typeof width == "number" ? width : 30;
@@ -82,7 +85,7 @@ export class pt_block extends RenderObject {
         }
 
         ctx.drawImage(this.texture, this.x, this.y, this.width, this.height);
-
+        
         ctx.beginPath();
 
         ctx.rect(this.x, this.y, this.width, this.height);
@@ -129,6 +132,14 @@ export class pt_block extends RenderObject {
                     // if (block.y == this.y - this.height) block.shadow = true;
 
                     if (block.id == this.id) {
+
+                        if (this.pixelParticleData !== null) {
+                            for (let i = 0; i < 20; i++) {
+
+                                new pt_particle_texture(this.pixelParticleData, this.x, this.y);
+                            }
+                        }
+
 
                         chunk.splice(y, 1);
                         //this.Destroy();

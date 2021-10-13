@@ -11,6 +11,13 @@ import { pt_block, pt_blocks, pt_chunks } from "./terrain/block.js";
 import { Debug } from "./essentials/debug.js";
 import { pt_spritesheet_cutter } from "./essentials/spritesheetCutter.js";
 import { pt_animator } from "./essentials/animator.js";
+import { effects } from "./effects/main.js";
+
+const fpsNode = document.querySelector(".item-framerate"),
+    playerCoordsNode = document.querySelector(".item-player-coords"),
+    renderOffsetNode = document.querySelector(".item-renderoffset");
+
+
 
 /**@type {HTMLCanvasElement} */
 export let canvas = null;
@@ -69,19 +76,19 @@ export function defineCanvasRenderer(canvasElement) {
 
 
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.height = window.innerHeight - 25;
 
     window.addEventListener("resize", function () {
 
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.height = window.innerHeight - 25;
 
     });
 
     canvas.addEventListener("mousemove", function (event) {
 
-        mouse.x = event.clientX;
-        mouse.y = event.clientY;
+        mouse.x = event.offsetX;
+        mouse.y = event.offsetY;
 
     });
 
@@ -152,7 +159,7 @@ export function updateRenderObjects(timeStamp) {
     ctx.save();
     ctx.beginPath();
 
-    ctx.drawImage(bg, 0, 0);
+    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
     //const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 
@@ -177,6 +184,15 @@ export function updateRenderObjects(timeStamp) {
     if (staticPlayer) {
 
         const x = Math.round(staticPlayer.x / 30);
+
+        for (let i = 0; i < effects.length; i++) {
+
+            const effect = effects[i];
+
+            effect.UpdateMain(secondsPassed);
+
+        }
+
 
         for (let i = x - renderDistance; i < x + renderDistance; i++) {
 
@@ -220,19 +236,9 @@ export function updateRenderObjects(timeStamp) {
 
     ctx.restore();
 
-    ctx.save();
-
-    ctx.beginPath();
-
-    ctx.fillStyle = "#fff";
-
-    ctx.font = "10px Consolas";
-
-    ctx.fillText(fps + " fps", 10, 10);
-    ctx.fillText(`Renderoffset: ${renderOffset.x} - ${renderOffset.y}`, 10, 25);
-    ctx.fillText(`Player coords: x: ${playerCoords.x} y:${playerCoords.y}`, 10, 40);
-
-    ctx.restore();
+    fpsNode.innerText = fps + "fps";
+    playerCoordsNode.innerText = `Coordinates x: ${playerCoords.x} y: ${playerCoords.y}`;
+    renderOffsetNode.innerText = `Render offset x: ${renderOffset.x} y: ${renderOffset.y}`;
 
     const now = performance.now();
 
