@@ -1,10 +1,11 @@
+import { pt_particle_image } from "../../effects/particle.js";
 import { pt_animator } from "../../essentials/animator.js";
 import { RenderingOptions } from "../../essentials/debug.js";
 import { keys } from "../../essentials/keyupdater.js";
 import { pt_loadImageSync } from "../../essentials/loadImage.js";
 import { pd, randomBetween } from "../../essentials/math.js";
 import { pt_spritesheet_cutter } from "../../essentials/spritesheetCutter.js";
-import { canvas, ctx, mouse, playerCoords, renderOffset, renderScale, Terrain } from "../../main.js";
+import { canvas, ctx, mouse, playerCoords, renderOffset, renderScale, secondsPassed, Terrain } from "../../main.js";
 import { RenderObject, renderObjects } from "../../rendering/renderobject.js";
 import { pt_block, pt_chunks } from "../../terrain/block.js";
 
@@ -59,7 +60,7 @@ export class pt_localplayer extends RenderObject {
 
     }
 
-    updateAnimator() {
+    updateAnimator(secondsPassed) {
 
         const walkingRight = this.animator.animations["walking-right"],
             walkingLeft = this.animator.animations["walking-left"],
@@ -103,12 +104,12 @@ export class pt_localplayer extends RenderObject {
         ctx.restore();
     }
 
-    draw() {
+    draw(secondsPassed) {
 
         const fixedMouseX = (mouse.x - renderOffset.x) / renderScale.x,
             fixedMouseY = (mouse.y - renderOffset.y) / renderScale.y;
 
-        if (typeof this.animator !== "undefined" && this.animator instanceof pt_animator) this.updateAnimator();
+        if (typeof this.animator !== "undefined" && this.animator instanceof pt_animator) this.updateAnimator(secondsPassed);
 
         if (RenderingOptions.ShowBoxBoundary) {
             ctx.beginPath();
@@ -130,8 +131,8 @@ export class pt_localplayer extends RenderObject {
             ctx.shadowBlur = randomBetween(1, 20);
             ctx.shadowColor = "#57e9ff";
 
-            ctx.strokeStyle = "#57e9ff";
-            ctx.stroke();
+            //ctx.strokeStyle = "#57e9ff";
+            //ctx.stroke();
 
             ctx.closePath();
             ctx.restore();
@@ -139,7 +140,7 @@ export class pt_localplayer extends RenderObject {
 
     }
 
-    shootLazer() {
+    shootLazer(secondsPassed) {
 
 
 
@@ -163,6 +164,7 @@ export class pt_localplayer extends RenderObject {
                     if (typeof chunk !== "undefined") {
                         for (let y = 0; y < yCoord + this.mouse.castingRange; y++) {
 
+                            /**@type {pt_block} */
                             const block = chunk[y];
 
                             if (typeof block !== "undefined") {
@@ -173,8 +175,10 @@ export class pt_localplayer extends RenderObject {
                                     if (block.destructable) {
 
                                         if (block.health > 0) {
-                                            block.health -= 50;
+                                            block.health -= 50 * secondsPassed;
                                         } else {
+
+                                            new pt_particle_image(block.texture, block.x, block.y, this);
 
                                             block.kill(this.x, this.y, this.mouse.castingRange);
 
@@ -205,7 +209,7 @@ export class pt_localplayer extends RenderObject {
         const xCoord = Math.round(this.x / 30),
             yCoord = Math.round(this.y / 30);
 
-        if (this.gravity) this.velY += 5 * secondsPassed;
+        if (this.gravity) this.velY += 1;
 
 
         for (let i = xCoord - 10; i < xCoord + 10; i++) {
@@ -287,10 +291,10 @@ export class pt_localplayer extends RenderObject {
         renderOffset.y = -(this.y - (canvas.height / 2)) * (renderScale.y * 1);
 
 
-        this.x += Math.round(this.velX);
-        this.y += Math.round(this.velY);
+        this.x += Math.round(this.velX * 5) * secondsPassed;
+        this.y += Math.round(this.velY * 5) * secondsPassed;
 
         this.shootLazer(secondsPassed);
-        this.draw();
+        this.draw(secondsPassed);
     }
 }

@@ -3,9 +3,8 @@
   "version": "0.3.0",
   "description": "Sweet Adventure",
   "developers": {
-    "name": "Babah Gee",
     "name": "Witchdoctor"
-  }
+  },
   "main": "app.js",
   "author": {
     "name": "Babah Gee",
@@ -15,7 +14,7 @@
     "install": "npm install express electron-is-dev electron socket.io socket.io-client colors cheerio",
     "start": "electron .",
     "start-novsync": "electron . --disable-frame-rate-limit",
-    "build": "electron-packager . Sweet-Adventure --overwrite --asar=true --platform=win32 --arch=ia32 --icon=game/assets/icons/general/favico.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Sweet Adventure\""
+    "build": "electron-packager . Sweet-Adventure --overwrite --asar=true --platform=win32 --arch=ia32 --icon=game/assets/general/app-favicon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Sweet Adventure\""
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10",

@@ -17,11 +17,14 @@ async function sleep(milliseconds) {
 /**@type {Array} */
 export const renderObjects = [];
 
+export let renderObjectCount = 0;
+
 export class RenderObject {
     constructor(object) {
 
         this.id = generateUniqueID(24);
         this.creationTimestamp = Date.now();
+        this.renderIndex = renderObjectCount;
 
         this.childObject = object;
 
@@ -30,6 +33,8 @@ export class RenderObject {
         this.events = {};
 
         renderObjects.push(this);
+
+        renderObjectCount += 1;
     }
     /**
      * Sets an event listener on this object.
@@ -153,64 +158,42 @@ export class RenderObject {
 
     async SlowDestroy() {
 
+        let i = this.renderIndex - 5,
+            maxIndex = this.renderIndex + 5;
+
         const operationID = "operation:" + generateUniqueID(18).id;
 
-        const operation = new pt_operation(operationID, 0, renderObjects.length);
+        const operation = new pt_operation(operationID, i, maxIndex);
 
         operation.On("end", function (time) {
             Debug.Log(`Succesfully executed operation '${operationID}' in ${time / 1000} seconds`);
         });
 
-        let i = 0,
-            o = renderObjects.length / 2;
+        while (i < maxIndex) {
 
-        while (i < renderObjects.length / 2) {
-
-            await sleep(1);
+            await sleep(200);
 
             const object = renderObjects[i];
 
-            if (object.id.id == this.id.id) {
-                if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
+            if (typeof object !== "undefined") {
+                if (object.id.id == this.id.id) {
+                    if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
 
-                renderObjects.splice(i, 1);
+                    delete renderObjects[i];
 
-                i = renderObjects.length / 2;
-                o = renderObjects.length;
+                    renderObjects.splice(i, 1);
 
-                operation.Destroy();
+                    i = maxIndex;
 
-                return;
+                    operation.Destroy();
+                }
+
+                i += 1;
+
+                operation.Update(i);
             }
-
-            i += 1;
-
-            operation.Update(i);
         }
 
-        while (o < renderObjects.length) {
-
-            await sleep(1);
-
-            const object = renderObjects[o];
-
-            if (object.id.id == this.id.id) {
-                if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
-
-                renderObjects.splice(o, 1);
-
-                i = renderObjects.length / 2;
-                o = renderObjects.length;
-
-                operation.Destroy();
-
-                return;
-            }
-
-            o += 1;
-
-            operation.Update(o);
-        }
 
     }
 

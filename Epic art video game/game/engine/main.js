@@ -185,15 +185,6 @@ export function updateRenderObjects(timeStamp) {
 
         const x = Math.round(staticPlayer.x / 30);
 
-        for (let i = 0; i < effects.length; i++) {
-
-            const effect = effects[i];
-
-            effect.UpdateMain(secondsPassed);
-
-        }
-
-
         for (let i = x - renderDistance; i < x + renderDistance; i++) {
 
             const chunk = pt_chunks[i];
@@ -213,6 +204,14 @@ export function updateRenderObjects(timeStamp) {
                 }
 
             }
+
+        }
+
+        for (let i = 0; i < effects.length; i++) {
+
+            const effect = effects[i];
+
+            effect.UpdateMain(secondsPassed);
 
         }
 
