@@ -12,6 +12,8 @@ import { Debug } from "./essentials/debug.js";
 import { pt_spritesheet_cutter } from "./essentials/spritesheetCutter.js";
 import { pt_animator } from "./essentials/animator.js";
 import { effects } from "./effects/main.js";
+import { get4v4ImageData } from "./rendering/getPixelData.js";
+import { pt_mainaudiointerface, pt_stereoaudionode } from "./essentials/audioplayer.js";
 
 const fpsNode = document.querySelector(".item-framerate"),
     playerCoordsNode = document.querySelector(".item-player-coords"),
@@ -159,7 +161,10 @@ export function updateRenderObjects(timeStamp) {
     ctx.save();
     ctx.beginPath();
 
-    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    ctx.drawImage(bg.image, 0, 0, canvas.width, canvas.height);
 
     //const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 
@@ -264,3 +269,10 @@ export const Terrain = {
     Blocks: pt_blocks,
     Chunks: pt_chunks
 }
+
+export const GetPixelData = get4v4ImageData;
+
+export const Mouse = mouse;
+
+export const MainAudioInterface = pt_mainaudiointerface;
+export const StereoAudioNode = pt_stereoaudionode;

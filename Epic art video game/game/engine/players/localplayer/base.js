@@ -2,9 +2,7 @@ import { pt_particle_image } from "../../effects/particle.js";
 import { pt_animator } from "../../essentials/animator.js";
 import { RenderingOptions } from "../../essentials/debug.js";
 import { keys } from "../../essentials/keyupdater.js";
-import { pt_loadImageSync } from "../../essentials/loadImage.js";
 import { pd, randomBetween } from "../../essentials/math.js";
-import { pt_spritesheet_cutter } from "../../essentials/spritesheetCutter.js";
 import { canvas, ctx, mouse, playerCoords, renderOffset, renderScale, secondsPassed, Terrain } from "../../main.js";
 import { RenderObject, renderObjects } from "../../rendering/renderobject.js";
 import { pt_block, pt_chunks } from "../../terrain/block.js";
@@ -25,6 +23,10 @@ export class pt_localplayer extends RenderObject {
             y: y,
             active: false,
             castingRange: 20
+        }
+
+        this.lazer = {
+            damage: 250,
         }
 
         this.velX = 0;
@@ -131,10 +133,25 @@ export class pt_localplayer extends RenderObject {
             ctx.shadowBlur = randomBetween(1, 20);
             ctx.shadowColor = "#57e9ff";
 
-            //ctx.strokeStyle = "#57e9ff";
-            //ctx.stroke();
+            ctx.strokeStyle = "#57e9ff";
+            ctx.stroke();
 
             ctx.closePath();
+            ctx.restore();
+
+            ctx.save();
+            ctx.beginPath();
+            const grd = ctx.createRadialGradient(fixedMouseX, fixedMouseY, 5, fixedMouseX, fixedMouseY, 10);
+
+            grd.addColorStop(0, "#57e9ff");
+            grd.addColorStop(randomBetween(5, 10) / 10, "transparent")
+            grd.addColorStop(1, "transparent")
+
+            ctx.arc(fixedMouseX, fixedMouseY, 10, 0, 2 * Math.PI);
+
+            ctx.fillStyle = grd;
+
+            ctx.fill();
             ctx.restore();
         }
 
@@ -175,7 +192,7 @@ export class pt_localplayer extends RenderObject {
                                     if (block.destructable) {
 
                                         if (block.health > 0) {
-                                            block.health -= 50 * secondsPassed;
+                                            block.health -= this.lazer.damage * secondsPassed;
                                         } else {
 
                                             new pt_particle_image(block.texture, block.x, block.y, this);
@@ -290,6 +307,8 @@ export class pt_localplayer extends RenderObject {
         renderOffset.x = -(this.x - (canvas.width / 2) + (this.width * 2)) * (renderScale.x * 1);
         renderOffset.y = -(this.y - (canvas.height / 2)) * (renderScale.y * 1);
 
+        //this.velY = Math.round(this.velY);
+        //this.velX = Math.round(this.velX);
 
         this.x += Math.round(this.velX * 5) * secondsPassed;
         this.y += Math.round(this.velY * 5) * secondsPassed;

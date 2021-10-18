@@ -29,6 +29,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="game\assets\audio\sfx\boardgame\Backgammon Piece 21.wav" />
+    <Content Include="game\assets\audio\sfx\boardgame\Dice 9.wav" />
+    <Content Include="game\assets\audio\sfx\boardgame\Domino Box 15.wav" />
+    <Content Include="game\assets\audio\sfx\boardgame\Placing Pieces on the Board 2.wav" />
     <Content Include="game\assets\audio\tracks\titlescreen\track01.wav" />
     <Content Include="game\assets\extracted\DECOR\bush1.png" />
     <Content Include="game\assets\extracted\DECOR\bush21.png" />
@@ -126,6 +130,10 @@
     <Content Include="game\assets\extracted\GRASS\topM.png" />
     <Content Include="game\assets\extracted\GRASS\topR.png" />
     <Content Include="game\assets\extracted\GRASS\topS.png" />
+    <Content Include="game\assets\extracted\LEAVS\acacia_leaves.png" />
+    <Content Include="game\assets\extracted\LEAVS\birch_leaves.png" />
+    <Content Include="game\assets\extracted\LEAVS\birch_leaves_bushy.png" />
+    <Content Include="game\assets\extracted\LOGS\log_01.png" />
     <Content Include="game\assets\fonts\atures.ttf" />
     <Content Include="game\assets\fonts\black.ttf" />
     <Content Include="game\assets\fonts\Chopsic-K6Dp.ttf" />
@@ -185,12 +193,17 @@
     <Content Include="game\assets\general\app-favicon.ico" />
     <Content Include="game\assets\general\sweet_adventure-export.png" />
     <Content Include="game\assets\general\test-parallax-wallpaper.png" />
+    <Content Include="game\assets\gui\hotbar\gui-hotbar-box.png" />
+    <Content Include="game\assets\icons\grenade.png" />
+    <Content Include="game\assets\icons\icon-cursor.png" />
     <Content Include="game\assets\icons\icon_cog.png" />
+    <Content Include="game\assets\icons\shovel.png" />
     <Content Include="game\assets\sheets\pts_001_500.png" />
     <Content Include="game\assets\sprites\player-spritesheet-01.png" />
     <Content Include="game\engine\effects\main.js" />
     <Content Include="game\engine\effects\particle.js" />
     <Content Include="game\engine\essentials\animator.js" />
+    <Content Include="game\engine\essentials\audioplayer.js" />
     <Content Include="game\engine\essentials\collection.js" />
     <Content Include="game\engine\essentials\generateUniqueID.js" />
     <Content Include="game\engine\essentials\keyupdater.js" />
@@ -210,11 +223,13 @@
     </Content>
     <Content Include="game\scenes\test\index.js" />
     <Content Include="game\scenes\test\terrain.js" />
+    <Content Include="game\scenes\test\textures.js" />
     <Content Include="game\scenes\titlescreen\index.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="game\scenes\titlescreen\index.js" />
     <Content Include="game\styles\static\static.essential.css" />
+    <Content Include="game\styles\static\static.gui.css" />
     <Content Include="game\styles\static\static.loader.css" />
     <Content Include="game\styles\static\static.titlebar.css" />
     <Content Include="game\styles\titlescreen.css" />
@@ -223,15 +238,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="game\" />
+    <Folder Include="game\assets\audio\sfx\" />
+    <Folder Include="game\assets\audio\sfx\boardgame\" />
     <Folder Include="game\assets\audio\tracks\" />
     <Folder Include="game\assets\audio\tracks\titlescreen\" />
     <Folder Include="game\assets\extracted\" />
     <Folder Include="game\assets\extracted\DECOR\" />
     <Folder Include="game\assets\extracted\GRASS\" />
+    <Folder Include="game\assets\extracted\LOGS\" />
+    <Folder Include="game\assets\extracted\LEAVS\" />
     <Folder Include="game\assets\general\" />
     <Folder Include="game\assets\fonts\" />
+    <Folder Include="game\assets\gui\hotbar\" />
     <Folder Include="game\assets\icons\" />
     <Folder Include="game\assets\audio\" />
+    <Folder Include="game\assets\gui\" />
     <Folder Include="game\assets\sprites\" />
     <Folder Include="game\assets\sheets\" />
     <Folder Include="game\engine\" />

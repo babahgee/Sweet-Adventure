@@ -1,0 +1,74 @@
+.app-gui {
+    width: 100vw;
+    height: calc(100vh - 25px);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+.gui-tools-hotbar {
+    width: 40px;
+    height: 140px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    margin: auto;
+    pointer-events: all;
+}
+
+.tools-hotbar-item {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    content: "";
+    margin: 5px 0px;
+    background: url(../../assets/gui/hotbar/gui-hotbar-box.png);
+    background-size: 100% 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(2px);
+}
+
+    .tools-hotbar-item img {
+        width: 70%;
+        height: 70%;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        display: block;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .tools-hotbar-item:before {
+        width: 10px;
+        height: auto;
+        position: absolute;
+        top: -10px;
+        left: 70%;
+        content: attr(data-title);
+        text-align: center;
+        background: none;
+        border: 2px solid transparent;
+        font-family: 'Montserrat';
+        font-size: 10px;
+        line-height: 15px;
+        padding: 4px 7px;
+        color: #fff;
+        border-radius: 25px;
+    }
+
+    .tools-hotbar-item.active:before {
+        background: #fff;
+        color: #000;
+        border: 2px solid #fff;
+    }
+
+    .tools-hotbar-item.active {
+
+    }

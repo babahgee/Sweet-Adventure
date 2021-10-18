@@ -45,7 +45,7 @@ export class pt_block extends RenderObject {
 
         this.shadow = false;
 
-        this.pixelParticleData = null;
+        this.pixelParticleData = (typeof texture !== "undefined" && typeof texture.pixelData !== "undefined") ? texture.pixelData : null;
 
         this.shadowOpacity = .9;
 
@@ -54,7 +54,7 @@ export class pt_block extends RenderObject {
 
         // this.resources = [];
 
-        this.texture = (typeof texture !== "undefined" && texture instanceof Image) ? texture : null;
+        this.texture = (typeof texture !== "undefined" && texture.image instanceof Image) ? texture.image : null;
 
         this.opacity = 0;
 
@@ -88,9 +88,9 @@ export class pt_block extends RenderObject {
         
         ctx.beginPath();
 
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = `rgba(0, 0, 0, ${this.shadowOpacity})`;
-        ctx.fill();
+        //ctx.rect(this.x, this.y, this.width, this.height);
+        //ctx.fillStyle = `rgba(0, 0, 0, ${this.shadowOpacity})`;
+        //ctx.fill();
 
         ctx.closePath();
 
@@ -153,6 +153,7 @@ export class pt_block extends RenderObject {
 
         this.SlowDestroy();
     }
+
     update(secondsPassed) {
 
         if (this.opacity < 1) {

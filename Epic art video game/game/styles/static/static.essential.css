@@ -69,6 +69,7 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, button, caption, ce
     content: "";
     outline: none;
     border: none;
+    cursor: crosshair;
 }
 
 canvas.temp-canvas {

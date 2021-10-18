@@ -1,3 +1,5 @@
+import { get4v4ImageData } from "../rendering/getPixelData.js";
+
 /**
  * Resolves image
  * @param {string} path
@@ -18,7 +20,10 @@ function resolveImage(path) {
 
         tempImg.addEventListener("load", function () {
 
-            resolve(tempImg);
+            resolve({
+                image: tempImg,
+                pixelData: get4v4ImageData(tempImg)
+            });
 
         });
 

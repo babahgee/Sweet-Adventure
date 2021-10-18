@@ -156,44 +156,40 @@ export class RenderObject {
         return states;
     }
 
-    async SlowDestroy() {
+    SlowDestroy() {
 
-        let i = this.renderIndex - 5,
-            maxIndex = this.renderIndex + 5;
+        //let i = this.renderIndex - 5,
+        //    maxIndex = this.renderIndex + 5;
 
-        const operationID = "operation:" + generateUniqueID(18).id;
+        //while (i < maxIndex) {
 
-        const operation = new pt_operation(operationID, i, maxIndex);
 
-        operation.On("end", function (time) {
-            Debug.Log(`Succesfully executed operation '${operationID}' in ${time / 1000} seconds`);
-        });
+        //    const object = renderObjects[i];
 
-        while (i < maxIndex) {
+        //    if (typeof object !== "undefined") {
+        //        if (object.id.id == this.id.id) {
+        //            if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
 
-            await sleep(200);
+        //            delete renderObjects[i];
 
-            const object = renderObjects[i];
+        //            renderObjects.splice(i, 1);
 
-            if (typeof object !== "undefined") {
-                if (object.id.id == this.id.id) {
-                    if (typeof this.events["destroy"] == "function") this.events["destroy"](this);
+        //            i = maxIndex;
+        //        }
 
-                    delete renderObjects[i];
+        //        i += 1;
+        //    }
+        //}
 
-                    renderObjects.splice(i, 1);
 
-                    i = maxIndex;
+        const object = renderObjects[this.renderIndex];
 
-                    operation.Destroy();
-                }
+        if (typeof object !== "undefined") {
 
-                i += 1;
+            delete renderObjects[this.renderIndex];
 
-                operation.Update(i);
-            }
+            renderObjects.splice(this.renderIndex, 1);
         }
-
 
     }
 
@@ -226,9 +222,9 @@ export class RenderObject {
             if (typeof this.x == "number" && typeof this.y == "number") {
 
 
-                if (this.x > -((renderOffset.x + canvas.width) / renderScale.x) &&
+                if (this.x > -((renderOffset.x + 30) / renderScale.x) &&
                     this.x < -((renderOffset.x - canvas.width) / renderScale.x) &&
-                    this.y > -((renderOffset.y + canvas.height) / renderScale.y) &&
+                    this.y > -((renderOffset.y + 30) / renderScale.y) &&
                     this.y < -((renderOffset.y - (canvas.height))) / renderScale.y) {
 
                     if (typeof this.update == "function")

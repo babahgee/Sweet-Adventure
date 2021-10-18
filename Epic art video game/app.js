@@ -14,6 +14,9 @@ const io = socketio(8000);
 // Get required objects from 'electron' object.
 const { app, BrowserWindow, screen, ipcMain } = electron;
 
+app.commandLine.appendSwitch("new-canvas-2d-api", "true");
+// app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096');
+
 // Create empty variable.
 let mainWindow;
 
@@ -37,6 +40,7 @@ app.on("ready", function () {
             nodeIntegration: true,
             nodeIntegrationInSubFrames: true,
             nodeIntegrationInWorker: true,
+            
         }
     });
 

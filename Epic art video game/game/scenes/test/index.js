@@ -8,12 +8,19 @@ import { generateTerrain } from "./terrain.js";
 const canvas = document.querySelector(".renderer-scene"),
     loader = document.querySelector(".app-loader");
 
+
+// Create main audio interface.
+const audioInterface = new engine.MainAudioInterface();
+
+
+
+
 // Define canvas renderer
 engine.defineCanvasRenderer(canvas);
 
 const playerSpriteSheet = await engine.loadImageSync("../../assets/sprites/player-spritesheet-01.png");
 
-const spriteSheetCutter = new engine.SpriteSheetCutter(playerSpriteSheet, "horizontal", 25);
+const spriteSheetCutter = new engine.SpriteSheetCutter(playerSpriteSheet.image, "horizontal", 25);
 
 await spriteSheetCutter.Cut();
 
@@ -33,6 +40,16 @@ mainPlayer.SetFrameAnimator(playerAnimator);
 engine.setUpdateRangeOnPlayer(mainPlayer);
 
 window.addEventListener("load", function () {
+
+    const x = this.document.createElement("audio");
+
+    x.src = "../../assets/audio/sfx/boardgame/Dice 9.wav";
+
+    const a = new engine.StereoAudioNode(x);
+
+    a.pan = 0;
+
+    a.Play();
 
     engine.updateRenderObjects();
 

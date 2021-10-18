@@ -97,8 +97,8 @@ export class pt_particle_texture extends RenderObject {
         this.x = x;
         this.y = y;
 
-        this.velX = randomBetween(-5, 5) * 10;
-        this.velY = randomBetween(-5, 5) * 10;
+        this.velX = randomBetween(-5, 5) * 5;
+        this.velY = randomBetween(-5, 5) * 5;
 
         this.size = 15;
 
@@ -147,7 +147,7 @@ export class pt_particle_texture extends RenderObject {
             this.kill();
         }
 
-        this.velY += 1;
+        this.velY += 2;
 
         this.x += this.velX * secondsPassed;
         this.y += this.velY * secondsPassed;
